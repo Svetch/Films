@@ -1,0 +1,28 @@
+#docker compose for wordpress with db
+
+version: "3"
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: films
+      MYSQL_DATABASE: films
+      MYSQL_USER: films
+      MYSQL_PASSWORD: films
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    ports:
+      - "8000:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: films
+      PMA_PASSWORD: films
+      PMA_ARBITRARY: 1
+volumes:
+  db_data:
